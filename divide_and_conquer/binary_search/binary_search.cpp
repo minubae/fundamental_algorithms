@@ -1,12 +1,31 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
-
+#include <math.h>
 using std::vector;
 
+/* Complie:
+g++ -pipe -O2 -std=c++11 binary_search.cpp -o binary_search
+g++ -pipe -O2 -std=c++14 binary_search.cpp -lm
+*/
+
+/*
+Binary Search
+*/
+
 int binary_search(const vector<int> &a, int x) {
-  int left = 0, right = (int)a.size(); 
-  //write your code here
+  int low = 0, high = (int)a.size() - 1;
+  
+  while(low <= high) {
+	  int mid = low + (high - low)/2;
+	  if (x == a[mid])
+		  return mid;
+	  else if (x < a[mid])
+		  high = mid - 1;
+	  else
+		  low = mid + 1;
+  }
+  return -1;
 }
 
 int linear_search(const vector<int> &a, int x) {
@@ -31,6 +50,7 @@ int main() {
   }
   for (int i = 0; i < m; ++i) {
     //replace with the call to binary_search when implemented
-    std::cout << linear_search(a, b[i]) << ' ';
+    //std::cout << linear_search(a, b[i]) << ' ';
+    std::cout << binary_search(a, b[i]) << ' ';
   }
 }
